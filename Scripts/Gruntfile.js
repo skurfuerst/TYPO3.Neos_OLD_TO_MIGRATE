@@ -81,6 +81,18 @@ module.exports = function (grunt) {
 				}
 			},
 
+			aloha2: {
+				src: [
+					libraryPath + 'aloha2/aloha.min.js'
+				],
+				dest: libraryPath + 'aloha2/aloha-processed.min.js',
+				options: {
+					banner: 'define(function() {',
+					footer: '  return aloha;' +
+					'});'
+				}
+			},
+
 			aloha: {
 				src: [
 					libraryPath + 'aloha/aloha.js'

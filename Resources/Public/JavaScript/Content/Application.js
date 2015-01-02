@@ -196,16 +196,11 @@ function(
 				}));
 			}
 
-			ResourceCache.getItem(Configuration.get('VieSchemaUri')).then(
-				function(vieSchema) {
-					ResourceCache.getItem(Configuration.get('NodeTypeSchemaUri')).then(
-						function(nodeTypeSchema) {
-							vie.Util.loadSchemaOrg(vie, vieSchema, null);
-							Configuration.set('Schema', nodeTypeSchema.nodeTypes);
-							that._initializeVieAfterSchemaIsLoaded(vie);
-						},
-						schemaLoadErrorCallback
-					);
+			ResourceCache.getItem(Configuration.get('NodeTypeSchemaUri')).then(
+				function(nodeTypeSchema) {
+					//vie.Util.loadSchemaOrg(vie, vieSchema, null);
+					Configuration.set('Schema', nodeTypeSchema.nodeTypes);
+					that._initializeVieAfterSchemaIsLoaded(vie);
 				},
 				schemaLoadErrorCallback
 			);
@@ -219,18 +214,19 @@ function(
 		},
 
 		_initializeCreateJs: function() {
+			console.log("initCreate");
 				// Midgard Storage
-			$('body').midgardStorage({
-				vie: vie,
-				url: function () { /* empty function to prevent Midgard error */ },
-				localStorage: true,
-				autoSave: true,
-				autoSaveInterval: 2500
-			});
+			//$('body').midgardStorage({
+			//	vie: vie,
+			//	url: function () { /* empty function to prevent Midgard error */ },
+			//	localStorage: true,
+			//	autoSave: true,
+			//	autoSaveInterval: 2500
+			//});
 
-			StorageManager.set('changes', $('body').data('Midgard-midgardStorage').changedModels);
-			StorageManager.start();
-			this.on('beforePageLoad', StorageManager, 'persist');
+			//StorageManager.set('changes', $('body').data('Midgard-midgardStorage').changedModels);
+			//StorageManager.start();
+			//this.on('beforePageLoad', StorageManager, 'persist');
 
 			CreateJS.initialize();
 		},

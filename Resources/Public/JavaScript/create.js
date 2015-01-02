@@ -3,10 +3,11 @@ define(
 		'Library/jquery-with-dependencies',
 		'vie',
 		'emberjs',
+		'Library/aloha2/aloha-processed.min',
 		'Content/InputEvents/EntitySelection',
 		'Content/Model/NodeSelection',
 		'Content/EditPreviewPanel/EditPreviewPanelController',
-		'Library/create',
+
 		'InlineEditing/CreateJs/jquery.typo3.collectionWidget',
 		'aloha'
 	],
@@ -14,10 +15,13 @@ define(
 		$,
 		vieInstance,
 		Ember,
+		aloha2,
 		EntitySelection,
 		NodeSelection,
 		EditPreviewPanelController
 	) {
+		console.warn("create DISABLED", aloha2);
+
 		return Ember.Object.create({
 				// Initially set state to null
 			_state: null,
@@ -42,9 +46,10 @@ define(
 
 			initialize: function() {
 				var that = this;
+				console.log("a");
 
 					// Wait until Aloha is loaded if we use Aloha
-				if (Aloha.__shouldInit) {
+				/*if (Aloha.__shouldInit) {
 					require({
 						context: 'aloha'
 					}, [
@@ -58,19 +63,43 @@ define(
 					});
 				} else {
 					this.enableEdit();
-				}
+				}*/
 
+				this.enableEdit();
+				console.log("ES INIT");
 				EntitySelection.initialize();
 				this.initializeAlohaEntitySelectionWorkaround();
 			},
 
 			enableEdit: function() {
-				var editableOptions = this.get('editableOptions'),
+/*				var editableOptions = this.get('editableOptions'),
 					specificEditableOptions;
 				$('[about]').each(function() {
 					var entity = vieInstance.entities.get(vieInstance.service('rdfa').getElementSubject(this));
 					specificEditableOptions = $.extend(true, {model: entity}, editableOptions);
 					$(this).midgardEditable(specificEditableOptions);
+*/
+				var editableOptions = {
+					disabled: false,
+					vie: vieInstance,
+					widgets: {
+						'default': 'aloha'
+					},
+					collectionWidgets: {
+						'default': 'typo3CollectionWidget'
+					},
+					editors: {
+						aloha: {
+							widget: 'alohaWidget'
+						},
+						'inline-only': {
+							widget: 'editWidget'
+						}
+					}
+				};
+
+				$('[about] .neos-inline-editable').each(function() {
+					aloha(this);
 				});
 
 				this.set('_state', 'edit');

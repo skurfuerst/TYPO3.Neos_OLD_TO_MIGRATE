@@ -7,7 +7,6 @@ define(
 [
 	'emberjs',
 	'Library/jquery-with-dependencies',
-	'vie',
 	'Content/Model/Node',
 	'Content/Components/TargetWorkspaceController',
 	'Shared/EventDispatcher',
@@ -21,7 +20,6 @@ define(
 ], function(
 	Ember,
 	$,
-	vie,
 	EntityWrapper,
 	TargetWorkspaceController,
 	EventDispatcher,
@@ -59,7 +57,7 @@ define(
 		}.property('workspaceWidePublishableEntitySubjects.length'),
 
 		init: function() {
-			vie.entities.on('change', this._updatePublishableEntities, this);
+			this._updatePublishableEntities();
 
 			EventDispatcher
 				.on('nodeCreated', this, 'getWorkspaceWideUnpublishedNodes')
@@ -76,7 +74,7 @@ define(
 			var publishableEntitySubjects = [],
 				documentNodeContextPath = $('#neos-document-metadata').attr('about');
 
-			vie.entities.forEach(function(entity) {
+			/*vie.entities.forEach(function(entity) {
 				if (this._isEntityPublishable(entity)) {
 					var entitySubject = entity.id,
 						nodeContextPath = entitySubject.slice(1, entitySubject.length - 1);
@@ -88,7 +86,8 @@ define(
 					}
 					publishableEntitySubjects.push(entitySubject);
 				}
-			}, this);
+			}, this);*/
+			// TODO;
 			this.set('publishableEntitySubjects', publishableEntitySubjects);
 		}.observes('targetWorkspaceController.userWorkspace'),
 

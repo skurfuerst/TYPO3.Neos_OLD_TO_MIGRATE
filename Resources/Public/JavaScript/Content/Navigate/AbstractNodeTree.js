@@ -415,7 +415,7 @@ define(
 					}
 
 					var vieEntity = entityWrapper._vieEntity;
-					if (vieEntity.isof('typo3:TYPO3.Neos:Document')) {
+					if (NodeTypeService.isOfType(entityWrapper.get('nodeType'), 'typo3:TYPO3.Neos:Document')) {
 						entityWrapper.addObserver('typo3:title', function() {
 							that.synchronizeNodeTitle(vieEntity);
 						});

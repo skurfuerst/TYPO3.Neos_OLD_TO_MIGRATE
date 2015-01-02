@@ -123,6 +123,7 @@ define(
 		 * this.$nodeTree
 		 */
 		_initializeTree: function() {
+			return;
 			if (this.$nodeTree) {
 				return;
 			}

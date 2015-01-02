@@ -236,13 +236,13 @@ function(
 			}
 		};
 
-		require(
+		/*require(
 			{
 				context: 'aloha',
 				baseUrl: alohaBaseUrl,
 				urlArgs: Configuration.get('neosJavascriptVersion') ? 'bust=' +  Configuration.get('neosJavascriptVersion') : ''
 			},
 			['aloha']
-		);
+		);*/
 	}
 });

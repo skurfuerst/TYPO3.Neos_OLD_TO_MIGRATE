@@ -2,13 +2,11 @@ define(
 	[
 		'Library/jquery-with-dependencies',
 		'Library/underscore',
-		'vie',
-		'InlineEditing/EmptyContentCollectionOverlay',
+		'InlineEditing/InlineEditingHandles/EmptyContentCollectionOverlay',
 		'InlineEditing/NotInlineEditableOverlay',
-		'Library/create'
 	],
 	function($, _, vie, EmptyContentCollectionOverlay, NotInlineEditableOverlay) {
-		$.widget('typo3.typo3CollectionWidget', $.Midgard.midgardCollectionAddBetween, {
+		//$.widget('typo3.typo3CollectionWidget', $.Midgard.midgardCollectionAddBetween, {
 			/**
 			 * The midgardCollectionAddBetween widget tries to detect the correct way to store
 			 * changes in the _create() method. This will fail on finding creates localStorage
@@ -16,7 +14,7 @@ define(
 			 * we prevent an error console.log() from create. This method is called without
 			 * further arguments, and does not change behaviour.
 			 */
-			_create: function() {
+		/*	_create: function() {
 				this.options.model.url = function() {};
 				this._super();
 			},
@@ -54,6 +52,6 @@ define(
 					}
 				}, this);
 			}
-		});
+		});*/
 	}
 );

@@ -118,8 +118,8 @@ define(
 		 *
 		 */
 		initialize: function() {
-			vie.entities.reset();
-			vie.load({element: $('body')}).from('rdfa').execute();
+			//vie.entities.reset();
+			//vie.load({element: $('body')}).from('rdfa').execute();
 			this.set('_entitiesBySubject', {});
 
 			// Update the selection on initialize, such that the current Page is added to the breadcrumb
@@ -248,7 +248,7 @@ define(
 					if (!_.isEmpty(propertyValidators)) {
 						nodeProxy.set('validators', propertyValidators);
 					}
-					_.extend(entity, {
+					/*_.extend(entity, {
 						validate: function(attrs, opts) {
 							if (opts && opts.validate === false || typeof nodeProxy.get('validators') === 'undefined') {
 								return;
@@ -280,23 +280,19 @@ define(
 							});
 							return results;
 						}
-					});
+					});*/
 					nodes.push(nodeProxy);
 				}
 			}
 		},
 
-		_createEntityWrapper: function($element, replace) {
-			var subject = vie.service('rdfa').getElementSubject($element);
+		_createEntityWrapper: function($element) {
+			var subject = $($element).attr('about');
+			console.log("S", subject);
 
-			if (!this._entitiesBySubject[subject] || replace === true) {
-				var entity = vie.entities.get(subject);
-				if (entity === undefined) {
-					return;
-				}
-
+			if (!this._entitiesBySubject[subject]) {
 				this._entitiesBySubject[subject] = EntityWrapper.create({
-					_vieEntity: entity
+					$element: $($element)
 				});
 			}
 

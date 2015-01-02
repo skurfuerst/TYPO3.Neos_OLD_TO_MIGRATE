@@ -1,4 +1,7 @@
-define(['Library/jquery-with-dependencies', 'Library/vie'], function($, VIE) {
+define(['Library/jquery-with-dependencies'], function($, VIE) {
+
+	console.warn("DEACTIVATED VIE.JS")
+	return false;
 	var vieInstance = new VIE();
 
 	if (!vieInstance.namespaces.get('typo3')) {

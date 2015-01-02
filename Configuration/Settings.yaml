@@ -46,31 +46,31 @@ TYPO3:
             events: ['preFlush']
             listener: 'TYPO3\Neos\EventLog\Integrations\TYPO3CRIntegrationService'
 
-    error:
-      exceptionHandler:
-        renderingGroups:
-          'notFoundExceptions':
-            matchingStatusCodes: [ 404 ]
-            options:
-              templatePathAndFilename: 'resource://TYPO3.Neos/Private/Templates/Error/Index.html'
-              layoutRootPath: 'resource://TYPO3.Neos/Private/Layouts/'
-              format: 'html'
-          'databaseConnectionExceptions':
-            matchingExceptionClassNames: ['TYPO3\Flow\Persistence\Doctrine\Exception\DatabaseException']
-            options:
-              templatePathAndFilename: 'resource://TYPO3.Neos/Private/Templates/Error/Index.html'
-              layoutRootPath: 'resource://TYPO3.Neos/Private/Layouts/'
-              format: 'html'
-              variables:
-                'showSetupLink': TRUE
-          'noHomepageException':
-            matchingExceptionClassNames: ['TYPO3\Neos\Routing\Exception\NoHomepageException']
-            options:
-              templatePathAndFilename: 'resource://TYPO3.Neos/Private/Templates/Error/Index.html'
-              layoutRootPath: 'resource://TYPO3.Neos/Private/Layouts/'
-              format: 'html'
-              variables:
-                'showSetupLink': TRUE
+#   error:
+#     exceptionHandler:
+#       renderingGroups:
+#         'notFoundExceptions':
+#           matchingStatusCodes: [ 404 ]
+#           options:
+#             templatePathAndFilename: 'resource://TYPO3.Neos/Private/Templates/Error/Index.html'
+#             layoutRootPath: 'resource://TYPO3.Neos/Private/Layouts/'
+#             format: 'html'
+#         'databaseConnectionExceptions':
+#           matchingExceptionClassNames: ['TYPO3\Flow\Persistence\Doctrine\Exception\DatabaseException']
+#           options:
+#             templatePathAndFilename: 'resource://TYPO3.Neos/Private/Templates/Error/Index.html'
+#             layoutRootPath: 'resource://TYPO3.Neos/Private/Layouts/'
+#             format: 'html'
+#             variables:
+#               'showSetupLink': TRUE
+#         'noHomepageException':
+#           matchingExceptionClassNames: ['TYPO3\Neos\Routing\Exception\NoHomepageException']
+#           options:
+#             templatePathAndFilename: 'resource://TYPO3.Neos/Private/Templates/Error/Index.html'
+#             layoutRootPath: 'resource://TYPO3.Neos/Private/Layouts/'
+#             format: 'html'
+#             variables:
+#               'showSetupLink': TRUE
 
       debugger:
         ignoredClasses:

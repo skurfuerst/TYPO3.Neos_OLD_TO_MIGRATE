@@ -23,6 +23,8 @@ define(
 			initialize: function() {
 				var that = this;
 
+				console.log("EntitySel");
+
 				$('#neos-application')
 					.on('focusout', function() {
 						that.set('_neosHasFocus', false);

@@ -64,8 +64,13 @@ define([
 		 * @return {object}
 		 */
 		nodeType: function() {
-			return Entity.extractNodeTypeFromVieEntity(this.get('_vieEntity'));
-		}.property('_vieEntity').volatile(),
+			var typeOf = this.get('$element').attr('typeof');
+			if (typeOf.indexOf('typo3:') == 0) {
+				return typeOf.substr(6);
+			} else {
+				return null;
+			}
+		}.property('$element').volatile(),
 
 		nodeTypeLabel: function() {
 			return this.get('nodeTypeSchema.ui.label');
@@ -75,8 +80,8 @@ define([
 		 * @return {void}
 		 */
 		init: function() {
-			var that = this,
-				vieEntity = this.get('_vieEntity'),
+			/*var that = this,
+				//vieEntity = this.get('_vieEntity'),
 				namespace = Configuration.get('TYPO3_NAMESPACE');
 
 			this.set('modified', !$.isEmptyObject(vieEntity.changed));
@@ -93,18 +98,23 @@ define([
 				that.set('publishable', vieEntity.get(namespace + '__workspacename') !== 'live');
 			});
 
-			this.set('$element', $entityElement);
+			this.set('$element', $entityElement);*/
 		},
 
 		/**
 		 * @return {object}
 		 */
 		attributes: function() {
-			if (arguments.length === 1) {
-				return Entity.extractAttributesFromVieEntity(this.get('_vieEntity'));
-			}
-			return {};
-		}.property('_vieEntity').volatile(),
+			var attributes = {},
+				$element = this.get('$element');
+			$.each(this.get('nodeTypeSchema.properties'), function(propertyName, propertySchema) {
+				var attributeName = propertyName.replace(/[A-Z]/g, function (g) { return '-' + g.toLowerCase(); });
+				// TODO: TYPE HANDLING
+				attributes[propertyName] = $element.attr('data-node-' + attributeName);
+
+			});
+			return attributes;
+		}.property('$element').volatile(),
 
 		/**
 		 * Set an attribute on the underlying VIE entity
@@ -162,7 +172,7 @@ define([
 		nodeTypeSchema: function() {
 			var schema = Configuration.get('Schema');
 			return schema[this.get('nodeType')];
-		}.property()
+		}.property('nodeType')
 	});
 
 	Entity.reopenClass({
@@ -186,33 +196,6 @@ define([
 				}
 			});
 			return cleanAttributes;
-		},
-
-		/**
-		 * @param {object} vieEntity
-		 * @return {string}
-		 */
-		extractNodeTypeFromVieEntity: function(vieEntity) {
-			var types = vieEntity.get('@type'),
-				type,
-				namespace = Configuration.get('TYPO3_NAMESPACE');
-			if (!_.isArray(types)) {
-				types = [types];
-			}
-
-			type = _.find(
-				_.map(types, function(type) {
-					return type.toString();
-				}), function(type) {
-					return type.indexOf('<' + namespace) === 0;
-				}
-			);
-
-			if (type) {
-				type = type.substr(namespace.length + 1);
-				type = type.substr(0, type.length - 1);
-			}
-			return type;
 		}
 	});
 	return Entity;
