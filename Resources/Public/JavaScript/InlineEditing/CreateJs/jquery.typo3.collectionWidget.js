@@ -2,7 +2,6 @@ define(
 	[
 		'Library/jquery-with-dependencies',
 		'Library/underscore',
-		'InlineEditing/InlineEditingHandles/EmptyContentCollectionOverlay',
 		'InlineEditing/NotInlineEditableOverlay',
 	],
 	function($, _, vie, EmptyContentCollectionOverlay, NotInlineEditableOverlay) {

@@ -3,11 +3,11 @@ define(
 		'Library/jquery-with-dependencies',
 		'vie',
 		'emberjs',
-		'Library/aloha2/aloha-processed.min',
 		'Content/InputEvents/EntitySelection',
 		'Content/Model/NodeSelection',
 		'Content/EditPreviewPanel/EditPreviewPanelController',
 
+		'Library/ckeditor/ckeditor',
 		'InlineEditing/CreateJs/jquery.typo3.collectionWidget',
 		'aloha'
 	],
@@ -15,12 +15,11 @@ define(
 		$,
 		vieInstance,
 		Ember,
-		aloha2,
 		EntitySelection,
 		NodeSelection,
 		EditPreviewPanelController
 	) {
-		console.warn("create DISABLED", aloha2);
+
 
 		return Ember.Object.create({
 				// Initially set state to null
@@ -98,8 +97,30 @@ define(
 					}
 				};
 
+				CKEDITOR.disableAutoInline = true;
+
 				$('[about] .neos-inline-editable').each(function() {
-					aloha(this);
+					console.log("FOO", this);
+					$(this).attr('contenteditable', 'true');
+					var id = Ember.generateGuid();
+					$(this).attr('id', id);
+					CKEDITOR.inline(id, {
+						allowedContent: 'h1 h2 h3 p',
+						on: {
+							// Resolve the promise once the editor is ready.
+							instanceReady: function() {
+								
+							},
+
+							// Enable all creatures created by UI items.
+							loaded: function() {
+								for ( var i in this.ui.items ) {
+									this.addFeature( this.ui.create( i ) );
+								}
+							}
+						}
+					});
+					//aloha(this);
 				});
 
 				this.set('_state', 'edit');
