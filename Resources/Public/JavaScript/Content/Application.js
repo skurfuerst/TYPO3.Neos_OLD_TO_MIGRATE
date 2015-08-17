@@ -198,9 +198,13 @@ function(
 
 			ResourceCache.getItem(Configuration.get('NodeTypeSchemaUri')).then(
 				function(nodeTypeSchema) {
-					//vie.Util.loadSchemaOrg(vie, vieSchema, null);
-					Configuration.set('Schema', nodeTypeSchema.nodeTypes);
-					that._initializeVieAfterSchemaIsLoaded(vie);
+					try {
+						Configuration.set('Schema', nodeTypeSchema.nodeTypes);
+						that._initializeVieAfterSchemaIsLoaded(vie);
+					} catch (e) {
+						console.log("ERROR", e);
+						throw e;
+					}
 				},
 				schemaLoadErrorCallback
 			);

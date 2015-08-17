@@ -176,26 +176,7 @@ define(
 				}
 
 				if (options.deselectEditables === true) {
-					require({
-						context: 'aloha'
-					}, [
-						'aloha'
-					], function (Aloha) {
-						// Wait until Aloha is loaded if we use Aloha
-						if (!Aloha.__shouldInit) {
-							return;
-						}
-
-						// Remove cursor pointer from active editable
-						var selection = Aloha.getSelection();
-						selection.removeAllRanges();
-
-						// Deactivate active editable
-						var activeEditable = Aloha.getActiveEditable();
-						if (activeEditable) {
-							Aloha.getActiveEditable().blur();
-						}
-					});
+					// TODO
 				}
 			} else {
 				$('body').removeClass('neos-contentelement-selected');
